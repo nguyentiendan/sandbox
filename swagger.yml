@@ -1,0 +1,180 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /user:
+    get:
+      operationId: user.read_all
+      tags:
+        - User
+      summary: Read the entire set of user, sorted by fullname
+      description: Read the entire set of user, sorted by fullname
+      responses:
+        200:
+          description: Successfully read user set operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: string
+                  description: Id of the user
+                uid:
+                  type: string
+                  description: uid of user
+                fullname:
+                  type: string
+                  description: Fullname of the user
+                ctime:
+                  type: string
+                  description: Creation timestamp of the user
+                mtime:
+                  type: string
+                  description: Update timestamp of the user
+
+    post:
+      operationId: user.create
+      tags:
+        - User
+      summary: Create a User
+      description: Create a new user
+      parameters:
+        - name: user
+          in: body
+          description: User to create
+          required: True
+          schema:
+            type: object
+            properties:
+              uid:
+                type: string
+                description: uid of user to create
+              fullname:
+                type: string
+                description: Fullname of user to create
+              
+      responses:
+        201:
+          description: Successfully created user
+          schema:
+            properties:
+              id:
+                type: string
+                description: Id of the user
+              uid:
+                type: string
+                description: uid of the user
+              fullname:
+                type: string
+                description: Last name of the user
+              ctime:
+                type: string
+                description: Creation timestamp of the user
+              mtime:
+                type: string
+                description: Update timestamp of the user
+
+  /user/{id}:
+    get:
+      operationId: user.read_one
+      tags:
+        - User
+      summary: Read one user
+      description: Read one user
+      parameters:
+        - name: id
+          in: path
+          description: Id of the user to get
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read user from User data operation
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Id of the user
+              uid:
+                type: string
+                description: uid of the user
+              fullname:
+                type: string
+                description: Fullname of the user
+              ctime:
+                type: string
+                description: Creation timestamp of the user
+              mtime:
+                type: string
+                description: Update timestamp of the user
+    
+    put:
+      operationId: user.update
+      tags:
+        - User
+      summary: Update a user
+      description: Update a user
+      parameters:
+        - name: id
+          in: path
+          description: Id the user to update
+          type: integer
+          required: True
+        - name: user
+          in: body
+          schema:
+            type: object
+            properties:
+              uid:
+                type: string
+                description: uid of the user
+              fullname:
+                type: string
+                description: Fullname of the user
+      responses:
+        200:
+          description: Successfully updated user
+          schema:
+            properties:
+              id:
+                type: string
+                description: Id of the user in the database
+              uid:
+                type: string
+                description: uid of the user
+              fullname:
+                type: string
+                description: Fullname of the user
+              ctime:
+                type: string
+                description: Creation timestamp of the user
+              mtime:
+                type: string
+                description: Update timestamp of the user
+
+    delete:
+      operationId: user.delete
+      tags:
+        - User
+      summary: Delete a user from the people list
+      description: Delete a user
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          description: Id of the user to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a user
